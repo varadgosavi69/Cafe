@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Cafe Karma | Brewed with Soul</title>
+  <meta name="description" content="Experience the quiet luxury of artisanal coffee and wood-fired cuisine at Cafe Karma — a sensory sanctuary in the heart of the city."/>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#331917",
+            "primary-container": "#4b2e2b",
+            "surface-container-high": "#f1e7d9",
+            "on-background": "#1f1b13",
+            "primary-fixed-dim": "#e8bcb7",
+            "surface-container-highest": "#ebe1d3",
+            "surface-tint": "#785652",
+            "secondary-fixed": "#ffe088",
+            "on-error": "#ffffff",
+            "inverse-on-surface": "#f9efe1",
+            "inverse-surface": "#353027",
+            "inverse-primary": "#e8bcb7",
+            "surface-variant": "#ebe1d3",
+            "on-tertiary-fixed": "#072019",
+            "secondary-fixed-dim": "#e9c349",
+            "on-surface-variant": "#504443",
+            "on-primary": "#ffffff",
+            "surface-container-low": "#fcf2e4",
+            "on-secondary": "#ffffff",
+            "error-container": "#ffdad6",
+            "surface-container": "#f7edde",
+            "outline-variant": "#d4c3c0",
+            "on-secondary-container": "#745c00",
+            "surface-bright": "#fff8f2",
+            "primary-fixed": "#ffdad6",
+            "on-primary-fixed": "#2d1512",
+            "secondary-container": "#fed65b",
+            "on-secondary-fixed": "#241a00",
+            "background": "#fff8f2",
+            "surface": "#fff8f2",
+            "outline": "#827472",
+            "secondary": "#735c00",
+            "surface-container-lowest": "#ffffff",
+            "on-surface": "#1f1b13",
+            "on-primary-fixed-variant": "#5e3f3b",
+            "error": "#ba1a1a",
+            "on-primary-container": "#be9590",
+            "surface-dim": "#e2d9cb",
+            "tertiary": "#0c241d"
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          fontFamily: {
+            "headline": ["Noto Serif", "serif"],
+            "body": ["Plus Jakarta Sans", "sans-serif"],
+            "label": ["Plus Jakarta Sans", "sans-serif"]
+          }
+        },
+      },
+    }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    /* Material Icons */
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .icon-fill {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* Typography */
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    h1, h2, h3, h4, h5 { font-family: 'Noto Serif', serif; }
+    /* Override Tailwind font-serif to use Noto Serif */
+    .font-serif { font-family: 'Noto Serif', serif !important; }
+
+    /* Glassmorphism */
+    .glass-panel {
+      background: rgba(255, 248, 242, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    /* Asymmetric image corners */
+    .asymmetric-image {
+      border-radius: 0.75rem 0.25rem 0.75rem 0.75rem;
+    }
+
+    /* Masonry gallery */
+    .masonry-grid { column-count: 2; column-gap: 1.25rem; }
+    @media (min-width: 768px) { .masonry-grid { column-count: 3; } }
+    .masonry-item { break-inside: avoid; margin-bottom: 1.25rem; }
+
+    /* Navbar transition */
+    #navbar { transition: background 0.35s ease, box-shadow 0.35s ease, padding 0.35s ease; }
+    #navbar.scrolled {
+      background: rgba(255, 248, 242, 0.96) !important;
+      box-shadow: 0 1px 24px rgba(51, 25, 23, 0.09);
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+
+    /* Floating label transitions */
+    .float-label-wrap { position: relative; padding-top: 1.25rem; }
+    .float-label-wrap input,
+    .float-label-wrap textarea,
+    .float-label-wrap select {
+      background: transparent;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-bottom: 2px solid #d4c3c0;
+      border-radius: 0;
+      padding: 0.5rem 0;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+      color: #1f1b13;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem;
+    }
+    .float-label-wrap input:focus,
+    .float-label-wrap textarea:focus,
+    .float-label-wrap select:focus { border-bottom-color: #735c00; box-shadow: none; }
+    .float-label-wrap label {
+      position: absolute;
+      left: 0;
+      top: 1.75rem;
+      font-size: 0.95rem;
+      color: #504443;
+      pointer-events: none;
+      transition: all 0.2s ease;
+    }
+    .float-label-wrap input:focus ~ label,
+    .float-label-wrap input:not(:placeholder-shown) ~ label,
+    .float-label-wrap textarea:focus ~ label,
+    .float-label-wrap textarea:not(:placeholder-shown) ~ label {
+      top: 0;
+      font-size: 0.7rem;
+      color: #735c00;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .float-label-wrap select ~ label {
+      top: 0;
+      font-size: 0.7rem;
+      color: #735c00;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Scroll-reveal for sections */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #331917, #735c00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+
+<body class="bg-surface text-on-surface selection:bg-secondary-container overflow-x-hidden">
+
+<!-- ═══════════════════════════════════════════════════════════
+     NAVBAR
+═══════════════════════════════════════════════════════════ -->
+<nav class="fixed top-0 w-full z-50 bg-stone-50/70 backdrop-blur-xl flex justify-between items-center px-6 md:px-12 py-5" id="navbar">
+  <a class="text-2xl font-serif italic text-stone-900 tracking-tight hover:opacity-80 transition-opacity" href="#home">Cafe Karma</a>
+
+  <!-- Desktop links -->
+  <div class="hidden md:flex items-center gap-10">
+    <a class="font-serif text-base tracking-tight nav-link active-link" href="#home">Home</a>
+    <a class="font-serif text-base tracking-tight nav-link" href="#menu">Menu</a>
+    <a class="font-serif text-base tracking-tight nav-link" href="#story">Story</a>
+    <a class="font-serif text-base tracking-tight nav-link" href="#gallery">Gallery</a>
+  </div>
+
+  <div class="flex items-center gap-3">
+    <a href="#reserve" class="hidden md:inline-flex bg-gradient-to-r from-primary to-primary-container text-on-primary px-6 py-2.5 rounded-full font-semibold text-sm hover:scale-95 transition-transform duration-300 items-center">
+      Reserve Table
+    </a>
+    <button aria-label="Toggle mobile menu" class="md:hidden p-2 rounded-lg hover:bg-surface-container transition-colors" id="nav-toggle">
+      <span class="material-symbols-outlined text-primary">menu</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MOBILE MENU OVERLAY
+═══════════════════════════════════════════════════════════ -->
+<div class="fixed inset-0 z-40 bg-surface/97 backdrop-blur-2xl flex-col items-center justify-center gap-6 hidden" id="mobile-menu">
+  <button aria-label="Close menu" class="absolute top-6 right-6 p-2" id="close-mobile-menu">
+    <span class="material-symbols-outlined text-primary text-3xl">close</span>
+  </button>
+  <a class="text-4xl font-serif italic text-primary py-2 hover:text-secondary transition-colors" href="#home" onclick="closeMobileMenu()">Home</a>
+  <a class="text-4xl font-serif italic text-primary py-2 hover:text-secondary transition-colors" href="#menu" onclick="closeMobileMenu()">Menu</a>
+  <a class="text-4xl font-serif italic text-primary py-2 hover:text-secondary transition-colors" href="#story" onclick="closeMobileMenu()">Story</a>
+  <a class="text-4xl font-serif italic text-primary py-2 hover:text-secondary transition-colors" href="#gallery" onclick="closeMobileMenu()">Gallery</a>
+  <a class="mt-4 px-10 py-4 bg-gradient-to-r from-primary to-primary-container text-on-primary rounded-full font-bold text-lg" href="#reserve" onclick="closeMobileMenu()">Reserve Table</a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════════ -->
+<section class="relative h-screen flex items-center justify-center overflow-hidden" id="home">
+  <div class="absolute inset-0 z-0">
+    <img alt="Cinematic close-up of dark espresso coffee pouring into a ceramic cup with soft morning light and steam rising"
+         class="w-full h-full object-cover brightness-[0.45]"
+         src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5Zmd7d6hjT2lD-9F8iaefuqlLdxfHBIsjOTP4PYwiA_kdRdqOzGXZF0M7rL01bwqk50jt1vs0N0SdVl7oilJRcNWAmdS3exMEp27K6PTJ0baj6mevYLpY6OQraIa13oP8-ruOcc1lPLgGzes8kv4X3equyGefKO2qpGfnL93Ve1_FyJM47m6xF19xe14omWi7A6e415HwUmrZsGeHUaSYda106OTO6jf-vHvcFK4lD0eKzjNxcRNunlsFskcmrRLF8dsqUpjj1ONE"/>
+    <!-- Gradient overlay for depth -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/50"></div>
+  </div>
+
+  <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+    <span class="uppercase tracking-[0.3em] text-secondary-container mb-6 block font-semibold text-xs md:text-sm">The Sensory Sanctuary</span>
+    <h1 class="text-5xl md:text-7xl lg:text-8xl text-white mb-8 leading-[1.05] tracking-tight">
+      Brewed with Soul <span class="inline-block hover:rotate-12 transition-transform duration-300">☕</span>
+    </h1>
+    <p class="text-surface-container-high text-base md:text-xl max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+      Experience the quiet luxury of artisanal coffee and wood-fired mastery in an atmosphere crafted for the urban dreamer.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <button class="group relative px-10 py-4 bg-gradient-to-r from-primary to-primary-container rounded-full overflow-hidden hover:scale-105 transition-transform duration-300 shadow-lg"
+              onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
+        <span class="relative z-10 text-on-primary font-semibold flex items-center gap-2">
+          Explore Menu <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </span>
+        <div class="absolute inset-0 bg-secondary opacity-0 group-hover:opacity-20 transition-opacity"></div>
+      </button>
+      <button class="px-10 py-4 rounded-full border border-white/30 backdrop-blur-md text-white font-semibold hover:bg-white/10 transition-all"
+              onclick="document.getElementById('story').scrollIntoView({behavior:'smooth'})">
+        Our Story
+      </button>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <button class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/50 animate-bounce cursor-pointer hover:text-white/80 transition-colors"
+          onclick="document.getElementById('story').scrollIntoView({behavior:'smooth'})" aria-label="Scroll down">
+    <span class="text-[9px] uppercase tracking-widest">Scroll</span>
+    <span class="material-symbols-outlined">expand_more</span>
+  </button>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     ABOUT / STORY
+═══════════════════════════════════════════════════════════ -->
+<section class="py-24 md:py-32 px-6 md:px-12 bg-surface" id="story">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+
+    <!-- Image column -->
+    <div class="relative group reveal">
+      <div class="absolute -top-10 -left-10 w-48 h-48 bg-secondary-container/15 rounded-full blur-3xl pointer-events-none"></div>
+      <img alt="Modern minimalist cafe interior with warm oak wood furniture large windows and lush indoor plants in soft natural lighting"
+           class="w-full h-[480px] lg:h-[600px] object-cover asymmetric-image shadow-2xl transition-transform duration-700 group-hover:scale-[1.015]"
+           src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwwMXYQ4kxNBE2rwJkgkRUR35_Isyh8JjTM0Co1dLYGQRhLTTWhbH8n61OD_6R2TCASOToRvJbHOw7uTqjOxCIDw0mPl8gRN8Exf1ycO5nGCox18wL-RQl6vd85Qm_abc7l4h9cUsWA16L1DhTesahmmwVL11MZIh6-1Iyip4HtxGdXpGrZQHHnSGh9NtpggalbFQqXz8gJTLqDZ0Jb_9NN_P1rqK0xbxlxJT1dUP2Z-SKIOxT1Ka1hlOaU64MHxHOgUTW98CsIkaa"/>
+      <div class="absolute bottom-8 -right-4 md:-right-10 p-5 md:p-7 glass-panel rounded-xl shadow-xl max-w-[240px] hidden sm:block">
+        <p class="text-primary italic font-serif text-sm leading-relaxed">"A place where time slows down and every bean tells a story of distant highlands."</p>
+      </div>
+    </div>
+
+    <!-- Content column -->
+    <div class="space-y-7 reveal">
+      <span class="text-secondary font-bold tracking-widest uppercase text-xs">Our Essence</span>
+      <h2 class="text-4xl lg:text-5xl text-primary leading-tight">Crafting the Perfect<br/>Moment of Zen</h2>
+      <p class="text-on-surface-variant text-lg leading-relaxed">
+        At Cafe Karma, we believe coffee is more than just a beverage — it's a ritual of mindfulness. Our beans are ethically sourced from small-batch farmers, roasted to perfection in-house to preserve the nuanced profiles of each region.
+      </p>
+      <p class="text-on-surface-variant leading-relaxed">
+        Our wood-fired kitchen celebrates craft — each dish prepared with seasonal ingredients and presented as a work of art. From the first sip to the last bite, we are designed to be a sanctuary for the senses.
+      </p>
+      <div class="pt-2 grid grid-cols-2 gap-4">
+        <div class="p-5 bg-surface-container rounded-xl hover:bg-surface-container-high transition-colors">
+          <h4 class="text-primary font-bold text-3xl mb-1">12+</h4>
+          <p class="text-on-surface-variant text-xs uppercase tracking-wide">Single Origin Blends</p>
+        </div>
+        <div class="p-5 bg-surface-container rounded-xl hover:bg-surface-container-high transition-colors">
+          <h4 class="text-primary font-bold text-3xl mb-1">100%</h4>
+          <p class="text-on-surface-variant text-xs uppercase tracking-wide">Organic Harvest</p>
+        </div>
+        <div class="p-5 bg-surface-container rounded-xl hover:bg-surface-container-high transition-colors">
+          <h4 class="text-primary font-bold text-3xl mb-1">5 ★</h4>
+          <p class="text-on-surface-variant text-xs uppercase tracking-wide">Average Rating</p>
+        </div>
+        <div class="p-5 bg-surface-container rounded-xl hover:bg-surface-container-high transition-colors">
+          <h4 class="text-primary font-bold text-3xl mb-1">2019</h4>
+          <p class="text-on-surface-variant text-xs uppercase tracking-wide">Roasting Since</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MENU
+═══════════════════════════════════════════════════════════ -->
+<section class="py-24 md:py-32 bg-surface-container-low" id="menu">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+
+    <!-- Header -->
+    <div class="text-center mb-12 space-y-3 reveal">
+      <span class="text-secondary font-bold tracking-widest uppercase text-xs">Curated For You</span>
+      <h2 class="text-4xl lg:text-5xl text-primary">The Curated Collection</h2>
+      <p class="text-on-surface-variant max-w-xl mx-auto text-sm md:text-base">Seasonal flavors and timeless classics, prepared with artisanal precision.</p>
+    </div>
+
+    <!-- Tab Buttons -->
+    <div class="flex justify-center gap-2 md:gap-3 mb-12 flex-wrap" id="menu-tabs">
+      <button class="tab-btn px-6 py-2.5 bg-primary text-on-primary rounded-full shadow text-sm font-semibold transition-all duration-200" data-tab="all">All</button>
+      <button class="tab-btn px-6 py-2.5 bg-surface-container-lowest text-on-surface-variant border border-outline-variant/40 rounded-full text-sm font-medium hover:bg-surface-container transition-all duration-200" data-tab="coffee">Coffee</button>
+      <button class="tab-btn px-6 py-2.5 bg-surface-container-lowest text-on-surface-variant border border-outline-variant/40 rounded-full text-sm font-medium hover:bg-surface-container transition-all duration-200" data-tab="pizza">Pizza</button>
+      <button class="tab-btn px-6 py-2.5 bg-surface-container-lowest text-on-surface-variant border border-outline-variant/40 rounded-full text-sm font-medium hover:bg-surface-container transition-all duration-200" data-tab="desserts">Desserts</button>
+      <button class="tab-btn px-6 py-2.5 bg-surface-container-lowest text-on-surface-variant border border-outline-variant/40 rounded-full text-sm font-medium hover:bg-surface-container transition-all duration-200" data-tab="specials">Specials</button>
+    </div>
+
+    <!-- Menu Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="menu-grid">
+
+      <!-- Coffee: Velvet Flat White -->
+      <div class="menu-card group relative bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden" data-category="coffee">
+        <div class="h-52 overflow-hidden rounded-lg mb-5">
+          <img alt="Top view of a perfect latte art tulip in a minimalist grey ceramic cup on a wooden table"
+               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuACsIWpCu0V9SZ2EwBnnTb1vhV96Orpe8sAE719k8J4s3u8bwWSVx-0eiPXT_aOxO9V2QNvDj8rQITl57mOTZlo0_1AIyyyTIIUnBkeNQy-40EOeTRwDvEiCUxda60f3qXMPLdj_GHButkg2TwpMeeF5jg47EbUamSp6YZs58dTfbyzpwYxGg2mi4hkSG1H-YJQtxbBkkKV-7tXNUbACAijRmVCCo_s7HAVARQIjMbF5qDe6DeiNqGVbCGCUZ2CI8lSBxbJTV0qBriS"/>
+        </div>
+        <span class="text-[10px] uppercase tracking-widest text-secondary font-semibold mb-1 block">Coffee</span>
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="text-lg font-bold text-primary">Velvet Flat White</h3>
+          <span class="text-secondary font-bold">₹490</span>
+        </div>
+        <p class="text-on-surface-variant text-sm mb-5 leading-relaxed">Double shot of Ethiopian Yirgacheffe with micro-foamed organic milk.</p>
+        <button class="w-full py-2.5 bg-surface-container-low text-primary rounded-lg font-semibold text-sm group-hover:bg-primary group-hover:text-on-primary transition-colors duration-300">
+          Add to Order
+        </button>
+      </div>
+
+      <!-- Coffee: Orbital Cold Brew -->
+      <div class="menu-card group relative bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden" data-category="coffee">
+        <div class="h-52 overflow-hidden rounded-lg mb-5">
+          <img alt="Artistic shot of a barista pouring milk into coffee showing movement and steam"
+               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoV50Hz3-n2MCpA_EcbQW0T9HTTY6f-HnAT3UpHFOLFiBpduOFkkA7JwuPKYVNI7z9dw_h7hk5PKh--4wdjT3XUoRrM8ES1pOocp4umM7QGZOcEROgGiylKvtPqSwCDMzFZQKH2z-VeBHxUyredLYNbzRSLi4wkTaTheclJc9ujjDK-R_6OiIE-B7dwA-NVEwpnzClsBTfkyj3Jk-O-ZT_eTP0GK3OxYIN3A55vHCf53h65L-PkSPQLYlpZyKow5oxEZANMTmXQ09q"/>
+        </div>
+        <span class="text-[10px] uppercase tracking-widest text-secondary font-semibold mb-1 block">Coffee</span>
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="text-lg font-bold text-primary">Orbital Cold Brew</h3>
+          <span class="text-secondary font-bold">₹380</span>
+        </div>
+        <p class="text-on-surface-variant text-sm mb-5 leading-relaxed">24-hour slow-steeped Guatemalan beans. Silky, bold, served over volcanic rock ice.</p>
+        <button class="w-full py-2.5 bg-surface-container-low text-primary rounded-lg font-semibold text-sm group-hover:bg-primary group-hover:text-on-primary transition-colors duration-300">
+          Add to Order
+        </button>
+      </div>
+
+      <!-- Pizza: Artisan Margherita -->
+      <div class="menu-card group relative bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden" data-category="pizza">
+        <div class="h-52 overflow-hidden rounded-lg mb-5">
+          <img alt="Wood-fired Margherita pizza with bubbling mozzarella fresh basil and charred crust on a rustic paddle"
+               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuQxIl_tFYS5owOkUAlkJwPA721ysRjn0FXUtzi4s0gib72mONiG0uLELqkD5fHxAt5MeQwAx1ipxsuHYbAKsrRgtH4yNefRkgnVFiyZe7k9x4EZtQuQpPbOAMFmmAnusE9IprrkarrpQA1Tc111c8JWech7LrLXQSAodkd3uKg2iExWuvgqmzkly6Q2NugMDEuX9tBH1_ZA3LkhhNLcQaPOyA-Yb_JIghu98pXwL2fTg7a-HOMzIzKvspFOikEr_2cFhXENlZiXGO"/>
+        </div>
+        <span class="text-[10px] uppercase tracking-widest text-secondary font-semibold mb-1 block">Pizza</span>
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="text-lg font-bold text-primary">Artisan Margherita</h3>
+          <span class="text-secondary font-bold">₹899</span>
+        </div>
+        <p class="text-on-surface-variant text-sm mb-5 leading-relaxed">San Marzano tomatoes, buffalo mozzarella, fresh basil, extra virgin olive oil.</p>
+        <button class="w-full py-2.5 bg-surface-container-low text-primary rounded-lg font-semibold text-sm group-hover:bg-primary group-hover:text-on-primary transition-colors duration-300">
+          Add to Order
+        </button>
+      </div>
+
+      <!-- Pizza: Peppy Paneer -->
+      <div class="menu-card group relative bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden" data-category="pizza">
+        <div class="h-52 overflow-hidden rounded-lg mb-5">
+          <img alt="Close-up of a Peppy Paneer pizza with grilled paneer cubes colorful capsicum and spicy red paprika"
+               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBK5KgR9VW2djdamq6dKL_FXl16hzKNgAZlOs3lkOpuxUdHNuyoOhGG9XGCuL4rH8ZOAWPGtCx26UA2Fgf5ZEFRoY-6Q6LGP-uZroH7Dp1cZAZ5Kt42nVsJztkypV67fn1lXKtuBwY4f8u2WhhgaWjZLa8evKSCJGTWSdnCPTpeVYABxYtddDZuALaYYlX2UbX5aiTh_U6JJnoLglh25X-V0v_MFcfCfk7vnaLpGT3MEtGZpLWjrrR_tHqS4qY9_CZIV48Gx--vmP2o"/>
+        </div>
+        <span class="text-[10px] uppercase tracking-widest text-secondary font-semibold mb-1 block">Pizza</span>
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="text-lg font-bold text-primary">Peppy Paneer</h3>
+          <span class="text-secondary font-bold">₹799</span>
+        </div>
+        <p class="text-on-surface-variant text-sm mb-5 leading-relaxed">Spiced cottage cheese, crisp capsicum, red paprika on our 72-hour fermented dough.</p>
+        <button class="w-full py-2.5 bg-surface-container-low text-primary rounded-lg font-semibold text-sm group-hover:bg-primary group-hover:text-on-primary transition-colors duration-300">
+          Add to Order
+        </button>
+      </div>
+
+      <!-- Desserts: Karma Cocoa Peak -->
+      <div class="menu-card group relative bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden" data-category="desserts">
+        <div class="h-52 overflow-hidden rounded-lg mb-5">
+          <img alt="Decadent chocolate lava cake with a molten center dusted with powdered sugar served with raspberry coulis"
+               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd-sw7vZgD4TY1DtdrnRPOALmPaIrkuZiDbXws0CQM1inLBWiLmOPvKf0uOMFxEKI95rdJ2FLoofZ7KvNq8DXFri69y8VUkApQPXTRW8v7yNxRR5kvhKedfCcAY7EfaPQVZrgPsQi3Lolcx9-C2tWOTtf-CEUEDOAMDawZzEoKMYVeJ8Bb5XGykXMrib4-nUNIW-CuqKnTksQdfYGGaHz7HoeWUv5rVdFpq4zkR-G_LOT-Ndge5gsEDcRfCbslVJxryRp-_a6W8Ua"/>
+        </div>
+        <span class="text-[10px] uppercase tracking-widest text-secondary font-semibold mb-1 block">Desserts</span>
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="text-lg font-bold text-primary">Karma Cocoa Peak</h3>
+          <span class="text-secondary font-bold">₹549</span>
+        </div>
+        <p class="text-on-surface-variant text-sm mb-5 leading-relaxed">70% dark chocolate fondant with a heart of molten hazelnut ganache.</p>
+        <button class="w-full py-2.5 bg-surface-container-low text-primary rounded-lg font-semibold text-sm group-hover:bg-primary group-hover:text-on-primary transition-colors duration-300">
+          Add to Order
+        </button>
+      </div>
+
+      <!-- Specials: Grilled Salmon -->
+      <div class="menu-card group relative bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden" data-category="specials">
+        <div class="relative h-52 overflow-hidden rounded-lg mb-5">
+          <img alt="Elegant plating of Grilled Salmon with asparagus spears and a lemon butter sauce"
+               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmGrPSxS8Rxm6dIVHNNEToFSbJLUF97UwoZy5Ohakmlzsrdv4OuiXSPU6GZP7lZ6v3wsyQWQPyR064YG1rr2p9n6yjUBpglCGASDTj3Ux_RRpywL7GuFur2w-noKBpthrKbpWvIYcf0DEqr6wazazSJWrNzQfU_fY3u5Ly8wVc2QlSR5kA1TT9GmROfQbTLrL5f-xLhabY77nCveMfVBsUc5cSk84s2NBAqnMYN64Kqact5QNwSkW3WiVXSd8A7CFcn6gaH6yPKsFp"/>
+          <span class="absolute top-3 left-3 bg-secondary text-on-secondary text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">Chef's Pick</span>
+        </div>
+        <span class="text-[10px] uppercase tracking-widest text-secondary font-semibold mb-1 block">Specials</span>
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="text-lg font-bold text-primary">Grilled Salmon</h3>
+          <span class="text-secondary font-bold">₹1,299</span>
+        </div>
+        <p class="text-on-surface-variant text-sm mb-5 leading-relaxed">Wild-caught Atlantic salmon with lemon-herb emulsion and seasonal vegetables.</p>
+        <button class="w-full py-2.5 bg-surface-container-low text-primary rounded-lg font-semibold text-sm group-hover:bg-primary group-hover:text-on-primary transition-colors duration-300">
+          Add to Order
+        </button>
+      </div>
+
+    </div>
+
+    <!-- View Full Menu CTA -->
+    <div class="text-center mt-12 reveal">
+      <button class="px-10 py-3.5 border-2 border-primary text-primary rounded-full font-bold hover:bg-primary hover:text-on-primary transition-all duration-300 text-sm">
+        View Full Menu
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHEF'S SPOTLIGHT
+═══════════════════════════════════════════════════════════ -->
+<section class="py-24 md:py-32 bg-primary overflow-hidden relative">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/3 -left-24 w-96 h-96 bg-secondary-container/10 rounded-full blur-[120px]"></div>
+    <div class="absolute bottom-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-[80px]"></div>
+  </div>
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <div class="text-center mb-14 reveal">
+      <span class="text-secondary-fixed-dim font-semibold tracking-widest uppercase text-xs block mb-3">This Season</span>
+      <h2 class="text-4xl lg:text-5xl text-on-primary">Chef's Spotlight</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+
+      <div class="group cursor-pointer reveal">
+        <div class="relative overflow-hidden rounded-2xl mb-5 ring-1 ring-white/10 group-hover:ring-secondary-fixed transition-all duration-300">
+          <img alt="Close-up of a Peppy Paneer pizza with spiced paneer and capsicum"
+               class="w-full aspect-square object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBK5KgR9VW2djdamq6dKL_FXl16hzKNgAZlOs3lkOpuxUdHNuyoOhGG9XGCuL4rH8ZOAWPGtCx26UA2Fgf5ZEFRoY-6Q6LGP-uZroH7Dp1cZAZ5Kt42nVsJztkypV67fn1lXKtuBwY4f8u2WhhgaWjZLa8evKSCJGTWSdnCPTpeVYABxYtddDZuALaYYlX2UbX5aiTh_U6JJnoLglh25X-V0v_MFcfCfk7vnaLpGT3MEtGZpLWjrrR_tHqS4qY9_CZIV48Gx--vmP2o"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/10 to-transparent"></div>
+        </div>
+        <h4 class="text-xl font-bold text-on-primary group-hover:text-secondary-fixed transition-colors">Peppy Paneer</h4>
+        <p class="text-on-primary-container text-sm mt-1">Spiced paneer, crisp capsicum, and red paprika. — ₹799</p>
+      </div>
+
+      <div class="group cursor-pointer reveal">
+        <div class="relative overflow-hidden rounded-2xl mb-5 ring-1 ring-white/10 group-hover:ring-secondary-fixed transition-all duration-300">
+          <img alt="Grilled Salmon elegantly plated with asparagus and lemon butter sauce"
+               class="w-full aspect-square object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmGrPSxS8Rxm6dIVHNNEToFSbJLUF97UwoZy5Ohakmlzsrdv4OuiXSPU6GZP7lZ6v3wsyQWQPyR064YG1rr2p9n6yjUBpglCGASDTj3Ux_RRpywL7GuFur2w-noKBpthrKbpWvIYcf0DEqr6wazazSJWrNzQfU_fY3u5Ly8wVc2QlSR5kA1TT9GmROfQbTLrL5f-xLhabY77nCveMfVBsUc5cSk84s2NBAqnMYN64Kqact5QNwSkW3WiVXSd8A7CFcn6gaH6yPKsFp"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/10 to-transparent"></div>
+        </div>
+        <h4 class="text-xl font-bold text-on-primary group-hover:text-secondary-fixed transition-colors">Grilled Salmon</h4>
+        <p class="text-on-primary-container text-sm mt-1">Wild-caught Atlantic salmon with lemon-herb emulsion. — ₹1,299</p>
+      </div>
+
+      <div class="group cursor-pointer reveal">
+        <div class="relative overflow-hidden rounded-2xl mb-5 ring-1 ring-white/10 group-hover:ring-secondary-fixed transition-all duration-300">
+          <img alt="Classic Margherita pizza with thick crust white mozzarella and vibrant green basil"
+               class="w-full aspect-square object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFulOfI8noeieI3c3ApxlgkK3QPmZfNY8AMTp9ug0V9JkaZFNt4rx0J11Fbw57LSXKgOyG6UDFgvtO48GWuzKHH2O0cOlGqTRqrCYOWDGhnVG6VXgHPbQpubTBMMOjjPOZKX23a7LbRS3c2XLfqL5QBRoR_QuOKBr86JyS2wBjm2dZIUsiPfSwbm0YAO-fvXbbqpoPCthWcnjlYoYcdGrzgdhcuzY83HRBKQ1R_F1C9dnVl7qdQxr4RUejMYYVKGv53zw8Lv1GzxXH"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/10 to-transparent"></div>
+        </div>
+        <h4 class="text-xl font-bold text-on-primary group-hover:text-secondary-fixed transition-colors">Signature Margherita</h4>
+        <p class="text-on-primary-container text-sm mt-1">72-hour fermented dough with heirloom tomatoes. — ₹899</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     GALLERY MASONRY
+═══════════════════════════════════════════════════════════ -->
+<section class="py-24 md:py-32 bg-surface" id="gallery">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <div class="text-center mb-14 reveal">
+      <span class="text-secondary font-bold tracking-widest uppercase text-xs block mb-3">Our Moments</span>
+      <h2 class="text-4xl lg:text-5xl text-primary text-center">The Sanctuary Feed</h2>
+    </div>
+    <div class="masonry-grid reveal">
+      <div class="masonry-item group relative overflow-hidden rounded-xl cursor-pointer">
+        <img alt="Barista pouring milk latte art into coffee cup with movement and steam"
+             class="w-full hover:scale-105 transition-transform duration-500"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoV50Hz3-n2MCpA_EcbQW0T9HTTY6f-HnAT3UpHFOLFiBpduOFkkA7JwuPKYVNI7z9dw_h7hk5PKh--4wdjT3XUoRrM8ES1pOocp4umM7QGZOcEROgGiylKvtPqSwCDMzFZQKH2z-VeBHxUyredLYNbzRSLi4wkTaTheclJc9ujjDK-R_6OiIE-B7dwA-NVEwpnzClsBTfkyj3Jk-O-ZT_eTP0GK3OxYIN3A55vHCf53h65L-PkSPQLYlpZyKow5oxEZANMTmXQ09q"/>
+        <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all rounded-xl"></div>
+      </div>
+      <div class="masonry-item group relative overflow-hidden rounded-xl cursor-pointer">
+        <img alt="Peaceful cafe interior with people reading and enjoying coffee"
+             class="w-full hover:scale-105 transition-transform duration-500"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsiISQEn63sIWB6gNA3Y_oxdk5H1e_GR5PeJ3G_MfexJ4DOupjeioUMkxPX-4M2dt9tbKncrpSEBcATYBac4wssGHQnI04Sqjsi_QJ4DfI5QjvN5o-5110YdnI7Qmb0J-6yrGZJQrTPl_mhwef2WXECBne04UZlsVBUz-Pz680dni7yULeYSNw6eYJbMD7_fUUfz5Sy6kn7zpKSSnyCBJ_spH1KaMVwXEtTqn9HVeQGKZULpqngtobKLfzmQ_zlTSdddrDNYdHGllf"/>
+        <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all rounded-xl"></div>
+      </div>
+      <div class="masonry-item group relative overflow-hidden rounded-xl cursor-pointer">
+        <img alt="Close up of roasted coffee beans in a wooden scoop with dramatic lighting"
+             class="w-full hover:scale-105 transition-transform duration-500"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvnnZdrFecjPDecJQ3DzHI2X34aEHnqEIIzhnFXIKuoARdKE6ARF2Xd0ZLNv1m6UZvPDl5PLnFbjqvc1P6SafGumSo89GoE6-qevXv7EuzhPLydV3rf9Yz_e61owYnEUA5ZRc5e5r8Iop7_rIWKhax17uGsF_bGpzeJ5dJKDorX83v2iUPjC0RzuyrVJ-IAWc2kAjuTXt9wD04Q61HliH0RaTHi6U3YFLpvsziNDla6H3TqV8WXpZezOMw1NOPcAokUSATcb9A139n"/>
+        <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all rounded-xl"></div>
+      </div>
+      <div class="masonry-item group relative overflow-hidden rounded-xl cursor-pointer">
+        <img alt="Rustic breakfast spread with sourdough toast poached eggs and coffee"
+             class="w-full hover:scale-105 transition-transform duration-500"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjNKxWhn_-Bl8tfIUIHg_5Koga0qa3rUBaQ1_uyOpugIlnaAMn5bOngJWNQPlG0kgs4fQUZjWrAdStZ4b1cXcO-7xDDPP-5G-NIdxbO3N3MPleJ_vNOkpPp8RZBEIxnYHF5ucUSSRiX8p0kxH7aulb31uuzMSOq_SnNmEbbLBTWCrluTrmDgWnS9k3KppPhTULK1cB3uuxC9UBijoVSLHmRcYJfHokyuySZxjt7L1wf71lfBSAZz7_XFMtZq_skqtFTjZsoYR_-B2_"/>
+        <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all rounded-xl"></div>
+      </div>
+      <div class="masonry-item group relative overflow-hidden rounded-xl cursor-pointer">
+        <img alt="Close-up of hands holding a warm coffee mug in a knit sweater"
+             class="w-full hover:scale-105 transition-transform duration-500"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHglMgNK86SUAVUTKX64yhxxAV_QBMHZROtI5tBqxTCtP3jZEYa8WETwyd0N9eppCCTvfhAJ-0r0L-XEsYgTRueWt1Sfa2YKYhTl-AORSH3c6vEsoUIb7aPeRETjCtsRzXyVlV3m-O-UGoKqFziBmGlXv_UJE5djgR5GBBWt5MNuQUEjvMoc-GXNuen0OPrEcNhKxyxB98j63JVq1_uA5wfvaIknXjbG1ubJQQWCy0UykkB6InV8zQClgltSXWMttyzaiIN4x2eIQb"/>
+        <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all rounded-xl"></div>
+      </div>
+      <div class="masonry-item group relative overflow-hidden rounded-xl cursor-pointer">
+        <img alt="Outdoor cafe seating with elegant chairs on a cobblestone street"
+             class="w-full hover:scale-105 transition-transform duration-500"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJ2l5-LAcXYgxHk0pORFjiUevMmnLxIPh8k1I-S_x6UyxbtB1IGldK8I1vDfyh7MbokD0jt-lifP9CmdGz8bvNoxyMDIgmM3wODu36tM-udyyQViRaK627SQJyiNdIO05p0y-ORvS009IpnOT0C8j6rAXaVK5S6Hu1BB0tnkyrqV6KGL1NfCxnY_pEhxW64J32cLT4oC_BMDsAoEEs5SZ83DUvY57d4k3aMDB29s1oRyiuuY8QlAYEqb4dasiZ7tcofepOdX6Tw-Aa"/>
+        <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all rounded-xl"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TESTIMONIALS
+═══════════════════════════════════════════════════════════ -->
+<section class="py-24 md:py-32 bg-surface-container-high relative overflow-hidden">
+  <div class="absolute top-0 right-0 w-64 h-64 bg-secondary-container/20 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="max-w-3xl mx-auto px-6 md:px-12 text-center">
+    <span class="material-symbols-outlined text-secondary text-5xl mb-6 block icon-fill">format_quote</span>
+    <div class="glass-panel p-8 md:p-12 rounded-3xl shadow-xl reveal">
+      <p class="text-xl md:text-2xl text-primary font-serif italic mb-8 leading-relaxed transition-all duration-500" id="testimonial-text">
+        "The atmosphere here is unlike any other. It truly feels like a sanctuary where every cup of coffee is treated as a masterpiece. Their Margherita is the best in the city!"
+      </p>
+      <div class="flex items-center justify-center gap-4">
+        <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-sm" id="testimonial-initials">EM</div>
+        <div class="text-left">
+          <h5 class="font-bold text-primary" id="testimonial-name">Eleanor M.</h5>
+          <p class="text-xs uppercase tracking-widest text-on-surface-variant" id="testimonial-role">Food Critic</p>
+        </div>
+      </div>
+    </div>
+    <!-- Dot navigation -->
+    <div class="flex justify-center gap-2 mt-8" id="testimonial-dots">
+      <button aria-label="Testimonial 1" class="w-2.5 h-2.5 rounded-full bg-primary scale-125 transition-all duration-300" data-index="0"></button>
+      <button aria-label="Testimonial 2" class="w-2.5 h-2.5 rounded-full bg-outline-variant transition-all duration-300" data-index="1"></button>
+      <button aria-label="Testimonial 3" class="w-2.5 h-2.5 rounded-full bg-outline-variant transition-all duration-300" data-index="2"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     RESERVATION
+═══════════════════════════════════════════════════════════ -->
+<section class="py-24 md:py-32 bg-surface relative overflow-hidden" id="reserve">
+  <div class="absolute top-10 right-0 w-80 h-80 bg-secondary-container/15 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-start">
+
+    <!-- Form side -->
+    <div class="reveal">
+      <span class="text-secondary font-bold tracking-widest uppercase text-xs block mb-4">Book a Table</span>
+      <h2 class="text-4xl lg:text-5xl text-primary mb-5">Secure Your Table</h2>
+      <p class="text-on-surface-variant mb-10 text-base leading-relaxed">Whether it's a morning coffee meeting or a candlelit dinner, we ensure your moment is nothing short of perfect.</p>
+
+      <form class="space-y-6" id="reservation-form" onsubmit="handleReservation(event)" novalidate>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="float-label-wrap">
+            <input id="res-name" placeholder="Full Name" type="text" required autocomplete="name"/>
+            <label for="res-name">Full Name</label>
+          </div>
+          <div class="float-label-wrap">
+            <input id="res-email" placeholder="Email Address" type="email" required autocomplete="email"/>
+            <label for="res-email">Email Address</label>
+          </div>
+        </div>
+        <div class="float-label-wrap">
+          <input id="res-phone" placeholder="Phone Number" type="tel" autocomplete="tel"/>
+          <label for="res-phone">Phone Number</label>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div class="float-label-wrap">
+            <input type="date" id="res-date" required/>
+            <label for="res-date">Date</label>
+          </div>
+          <div class="float-label-wrap">
+            <input type="time" id="res-time" required/>
+            <label for="res-time">Time</label>
+          </div>
+          <div class="float-label-wrap">
+            <select id="res-guests" required>
+              <option value="">Select</option>
+              <option>1 Guest</option>
+              <option>2 Guests</option>
+              <option>3 Guests</option>
+              <option>4 Guests</option>
+              <option>5 Guests</option>
+              <option>6+ Guests</option>
+            </select>
+            <label for="res-guests">Guests</label>
+          </div>
+        </div>
+        <div class="float-label-wrap">
+          <textarea id="res-note" placeholder="Special Request (optional)" style="height:80px; resize:none;"></textarea>
+          <label for="res-note">Special Request (optional)</label>
+        </div>
+        <button class="w-full py-4 bg-gradient-to-r from-primary to-primary-container text-on-primary rounded-xl font-bold hover:shadow-xl hover:scale-[1.01] transition-all duration-300 text-base" type="submit">
+          Confirm Reservation
+        </button>
+      </form>
+
+      <!-- Success state -->
+      <div class="hidden mt-6 p-8 bg-surface-container rounded-2xl text-center" id="form-success">
+        <span class="material-symbols-outlined text-5xl text-secondary mb-3 block icon-fill">check_circle</span>
+        <h3 class="text-2xl text-primary mb-2">Reservation Confirmed!</h3>
+        <p class="text-on-surface-variant">We'll send details to your email shortly. See you soon!</p>
+        <button class="mt-6 px-8 py-3 border-2 border-primary text-primary rounded-full font-semibold hover:bg-primary hover:text-on-primary transition-all" onclick="resetForm()">
+          Book Another Table
+        </button>
+      </div>
+    </div>
+
+    <!-- Map side -->
+    <div class="rounded-3xl overflow-hidden shadow-2xl h-[360px] lg:h-[580px] reveal">
+      <img alt="Map placeholder showing the location of Cafe Karma in New Delhi"
+           class="w-full h-full object-cover"
+           src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzZctwcsYny8GfbeixiKT2nXZyLUJSDPDqD_btaOlw2BLbYg68_rG2J8pzUzfrEY0gVyYSiIRCAgPlFnMaZY8EWk7P5N_jpvTrHTNLtBE3x1TZCG7-1kUnEFXGCG9nfLYJjrzTsHoQTPe1RPRqPR6QvUriLAZOG3ssFcpOqmw8gmyK6s-0uW9-7pAZbhPTSdGW71kihupmma5akeyFwYP8c6C20pfBSDszCAHXNEZGpvHAkZSw1qDSlYF6vSp_rfQS9xxftHmnUgG8"/>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════════ -->
+<footer class="bg-primary">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 pt-16 pb-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
+
+      <!-- Brand -->
+      <div class="sm:col-span-2 lg:col-span-1">
+        <div class="text-2xl font-serif italic text-on-primary mb-4">Cafe Karma</div>
+        <p class="text-on-primary-container text-sm leading-relaxed">A sensory sanctuary where every cup is brewed with soul. Ethically sourced, artisanally crafted.</p>
+        <div class="flex gap-3 mt-6">
+          <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full border border-on-primary/20 flex items-center justify-center text-on-primary-container hover:border-secondary-fixed hover:text-secondary-fixed transition-all text-xs font-bold">IG</a>
+          <a href="#" aria-label="Facebook" class="w-9 h-9 rounded-full border border-on-primary/20 flex items-center justify-center text-on-primary-container hover:border-secondary-fixed hover:text-secondary-fixed transition-all text-xs font-bold">FB</a>
+          <a href="#" aria-label="Twitter" class="w-9 h-9 rounded-full border border-on-primary/20 flex items-center justify-center text-on-primary-container hover:border-secondary-fixed hover:text-secondary-fixed transition-all text-xs font-bold">TW</a>
+        </div>
+      </div>
+
+      <!-- Navigate -->
+      <div>
+        <h4 class="text-on-primary font-semibold mb-5 uppercase tracking-widest text-xs">Navigate</h4>
+        <ul class="space-y-3">
+          <li><a href="#home" class="text-on-primary-container text-sm hover:text-secondary-fixed transition-colors">Home</a></li>
+          <li><a href="#menu" class="text-on-primary-container text-sm hover:text-secondary-fixed transition-colors">Menu</a></li>
+          <li><a href="#story" class="text-on-primary-container text-sm hover:text-secondary-fixed transition-colors">Our Story</a></li>
+          <li><a href="#gallery" class="text-on-primary-container text-sm hover:text-secondary-fixed transition-colors">Gallery</a></li>
+          <li><a href="#reserve" class="text-on-primary-container text-sm hover:text-secondary-fixed transition-colors">Reserve Table</a></li>
+        </ul>
+      </div>
+
+      <!-- Hours -->
+      <div>
+        <h4 class="text-on-primary font-semibold mb-5 uppercase tracking-widest text-xs">Hours</h4>
+        <ul class="space-y-2.5 text-on-primary-container text-sm">
+          <li>Mon – Fri: 7am – 10pm</li>
+          <li>Saturday: 8am – 11pm</li>
+          <li>Sunday: 9am – 9pm</li>
+        </ul>
+        <h4 class="text-on-primary font-semibold mt-7 mb-3 uppercase tracking-widest text-xs">Contact</h4>
+        <p class="text-on-primary-container text-sm">hello@cafekarma.in</p>
+        <p class="text-on-primary-container text-sm mt-1">Connaught Place, New Delhi</p>
+      </div>
+    </div>
+
+    <div class="border-t border-on-primary/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-on-primary-container text-xs text-center">© 2024 Cafe Karma. Crafted for the Sensory Sanctuary.</p>
+      <div class="flex gap-6">
+        <a href="#" class="text-on-primary-container text-xs uppercase tracking-widest hover:text-secondary-fixed transition-colors">Privacy Policy</a>
+        <a href="#" class="text-on-primary-container text-xs uppercase tracking-widest hover:text-secondary-fixed transition-colors">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile FAB -->
+<a href="#reserve" class="fixed bottom-8 right-8 w-14 h-14 bg-secondary text-on-secondary rounded-full flex items-center justify-center shadow-2xl md:hidden z-40 hover:scale-110 transition-transform" aria-label="Reserve a table">
+  <span class="material-symbols-outlined icon-fill">calendar_month</span>
+</a>
+
+<!-- ═══════════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════════ -->
+<script>
+// ── Navbar scroll effect ──────────────────────────────────────
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ── Mobile menu ───────────────────────────────────────────────
+const mobileMenu = document.getElementById('mobile-menu');
+document.getElementById('nav-toggle').addEventListener('click', () => {
+  mobileMenu.classList.toggle('hidden');
+  mobileMenu.classList.toggle('flex');
+  document.body.style.overflow = mobileMenu.classList.contains('flex') ? 'hidden' : '';
+});
+document.getElementById('close-mobile-menu').addEventListener('click', closeMobileMenu);
+function closeMobileMenu() {
+  mobileMenu.classList.add('hidden');
+  mobileMenu.classList.remove('flex');
+  document.body.style.overflow = '';
+}
+
+// ── Scrollspy: active nav link ────────────────────────────────
+const navLinks = document.querySelectorAll('.nav-link');
+const activeCls = ['text-amber-700', 'font-semibold', 'border-b-2', 'border-amber-700'];
+const inactiveCls = ['text-stone-600', 'hover:text-stone-900'];
+
+function setActiveLink(id) {
+  navLinks.forEach(a => {
+    const isActive = a.getAttribute('href') === '#' + id;
+    activeCls.forEach(c => a.classList.toggle(c, isActive));
+    inactiveCls.forEach(c => a.classList.toggle(c, !isActive));
+  });
+}
+
+const ioNav = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) setActiveLink(e.target.id); });
+}, { rootMargin: '-35% 0px -60% 0px' });
+
+document.querySelectorAll('section[id]').forEach(s => ioNav.observe(s));
+
+// ── Scroll reveal ─────────────────────────────────────────────
+const ioReveal = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      ioReveal.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => ioReveal.observe(el));
+
+// ── Menu tab filtering ────────────────────────────────────────
+function filterMenu(tab) {
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    const active = btn.dataset.tab === tab;
+    btn.className = active
+      ? 'tab-btn px-6 py-2.5 bg-primary text-on-primary rounded-full shadow text-sm font-semibold transition-all duration-200'
+      : 'tab-btn px-6 py-2.5 bg-surface-container-lowest text-on-surface-variant border border-outline-variant/40 rounded-full text-sm font-medium hover:bg-surface-container transition-all duration-200';
+  });
+  document.querySelectorAll('.menu-card').forEach(card => {
+    const show = tab === 'all' || card.dataset.category === tab;
+    card.style.display = show ? '' : 'none';
+    if (show) {
+      card.style.animation = 'none';
+      card.offsetHeight; // reflow
+      card.style.animation = 'fadeInUp 0.4s ease forwards';
+    }
+  });
+}
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => filterMenu(btn.dataset.tab));
+});
+
+// Add fadeInUp keyframe
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+`;
+document.head.appendChild(style);
+
+// ── Testimonials ──────────────────────────────────────────────
+const testimonials = [
+  {
+    text: '"The atmosphere here is unlike any other. It truly feels like a sanctuary where every cup of coffee is treated as a masterpiece. Their Margherita is the best in the city!"',
+    name: 'Eleanor M.', role: 'Food Critic', initials: 'EM'
+  },
+  {
+    text: '"Cafe Karma changed my morning routine forever. The Velvet Flat White is an experience, not just a drink. The warm interiors make you never want to leave."',
+    name: 'Arjun S.', role: 'Coffee Enthusiast', initials: 'AS'
+  },
+  {
+    text: '"Best pizza I\'ve had outside of Naples. The wood-fired crust is perfection — paired with their cold brew it\'s absolute heaven. A must-visit in Delhi."',
+    name: 'Priya K.', role: 'Food Blogger', initials: 'PK'
+  }
+];
+let activeIdx = 0;
+
+function setTestimonial(idx) {
+  const t = testimonials[idx];
+  const textEl   = document.getElementById('testimonial-text');
+  const nameEl   = document.getElementById('testimonial-name');
+  const roleEl   = document.getElementById('testimonial-role');
+  const initEl   = document.getElementById('testimonial-initials');
+
+  textEl.style.opacity = '0';
+  setTimeout(() => {
+    textEl.textContent = t.text;
+    nameEl.textContent = t.name;
+    roleEl.textContent = t.role;
+    initEl.textContent = t.initials;
+    textEl.style.opacity = '1';
+    textEl.style.transition = 'opacity 0.5s ease';
+  }, 250);
+
+  document.querySelectorAll('#testimonial-dots button').forEach((dot, i) => {
+    dot.className = i === idx
+      ? 'w-2.5 h-2.5 rounded-full bg-primary scale-125 transition-all duration-300'
+      : 'w-2.5 h-2.5 rounded-full bg-outline-variant transition-all duration-300';
+  });
+  activeIdx = idx;
+}
+
+document.querySelectorAll('#testimonial-dots button').forEach(dot => {
+  dot.addEventListener('click', () => setTestimonial(parseInt(dot.dataset.index)));
+});
+setInterval(() => setTestimonial((activeIdx + 1) % testimonials.length), 5000);
+
+// ── Reservation form ──────────────────────────────────────────
+function handleReservation(e) {
+  e.preventDefault();
+  const form = document.getElementById('reservation-form');
+  const success = document.getElementById('form-success');
+  form.style.transition = 'opacity 0.3s';
+  form.style.opacity = '0';
+  setTimeout(() => {
+    form.classList.add('hidden');
+    success.classList.remove('hidden');
+    success.style.opacity = '0';
+    requestAnimationFrame(() => {
+      success.style.transition = 'opacity 0.4s';
+      success.style.opacity = '1';
+    });
+  }, 300);
+}
+
+function resetForm() {
+  const form = document.getElementById('reservation-form');
+  const success = document.getElementById('form-success');
+  form.reset();
+  success.classList.add('hidden');
+  form.classList.remove('hidden');
+  form.style.opacity = '1';
+}
+</script>
+
+</body>
+</html>
